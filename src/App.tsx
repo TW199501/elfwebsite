@@ -351,7 +351,7 @@ function App() {
           </div>
 
           {/* Tech Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
               <div className="text-2xl font-bold text-cyan-400">99.9%</div>
               <div className="text-sm text-gray-400">AI準確率</div>
