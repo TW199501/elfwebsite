@@ -315,7 +315,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="首頁" className="relative h-screen flex items-center justify-center">
+      <section id="首頁" className="relative min-h-screen flex items-center justify-center pb-40">
         <div className="relative z-10 text-center max-w-6xl mx-auto px-4">
           <div className="mb-8">
             <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-cyan-500/30 rounded-full px-6 py-2 mb-6">
