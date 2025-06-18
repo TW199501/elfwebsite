@@ -1,22 +1,26 @@
-import { Language } from '../contexts/I18nContext';
+import { Language } from '../contexts/i18n-context-utils';
 
 // 動態載入語言檔案的函數
 export const loadLocale = async (language: Language): Promise<Record<string, string>> => {
   try {
     switch (language) {
-      case 'en':
+      case 'en': {
         const enModule = await import('./en');
         return enModule.default;
-      case 'zh-TW':
+      }
+      case 'zh-TW': {
         const zhTWModule = await import('./zh-tw');
         return zhTWModule.default;
-      case 'zh-CN':
+      }
+      case 'zh-CN': {
         const zhCNModule = await import('./zh-cn');
         return zhCNModule.default;
-      default:
+      }
+      default: {
         // 預設載入英文
         const defaultModule = await import('./en');
         return defaultModule.default;
+      }
     }
   } catch (error) {
     console.error(`Failed to load locale ${language}:`, error);

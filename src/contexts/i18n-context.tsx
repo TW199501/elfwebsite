@@ -1,27 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loadLocale, detectBrowserLanguage, LANGUAGE_CONFIG } from '../i18n';
+import { I18nContext, Language } from './i18n-context-utils';
 
-export type Language = 'en' | 'zh-TW' | 'zh-CN';
+// 只 export I18nProvider，context/hook/type 都從 i18n-context-utils 匯入
 
-interface I18nContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: (key: string, params?: Record<string, string | number>) => string;
-  availableLanguages: { code: Language; name: string; flag: string }[];
-  isLoading: boolean;
-}
-
-const I18nContext = createContext<I18nContextType | undefined>(undefined);
-
-export const useI18n = () => {
-  const context = useContext(I18nContext);
-  if (context === undefined) {
-    throw new Error('useI18n must be used within an I18nProvider');
-  }
-  return context;
-};
-
-export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     // 優先從 localStorage 讀取，否則自動檢測
     const savedLang = localStorage.getItem('language') as Language;
@@ -36,40 +19,58 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // 語言切換函數
   const setLanguage = (lang: Language) => {
-    console.log('I18nContext: Setting language from', language, 'to:', lang);
-    if (lang !== language) {
-      setLanguageState(lang);
-      localStorage.setItem('language', lang);
+    if (!LANGUAGE_CONFIG.supportedLanguages.includes(lang)) {
+      console.warn(`[I18n] Unsupported language: ${lang}`);
+      return;
     }
+    console.log('setLanguage called:', lang, 'current context.language:', language, 'localStorage:', localStorage.getItem('language'));
+    localStorage.setItem('language', lang);
+    setLanguageState(lang);
   };
+
+
+
 
   // 載入翻譯檔案
   useEffect(() => {
+    console.log('[useEffect] language changed:', language, 'localStorage:', localStorage.getItem('language'));
+
+    let isActive = true;
+    const currentLang = language;
     const loadTranslations = async () => {
       setIsLoading(true);
       try {
-        console.log('I18nContext: Loading translations for:', language);
-        const localeData = await loadLocale(language);
-        setTranslations(localeData);
-        console.log('I18nContext: Translations loaded successfully for:', language, 'Keys:', Object.keys(localeData).length);
+        console.log('I18nContext: Loading translations for:', currentLang);
+        const localeData = await loadLocale(currentLang);
+        if (isActive && language === currentLang) {
+          setTranslations(localeData);
+          console.log('I18nContext: Translations loaded successfully for:', currentLang, 'Keys:', Object.keys(localeData).length);
+        }
       } catch (error) {
-        console.error('I18nContext: Failed to load translations for', language, ':', error);
+        console.error('I18nContext: Failed to load translations for', currentLang, ':', error);
         // 載入失敗時使用英文作為後備
-        if (language !== LANGUAGE_CONFIG.fallbackLanguage) {
+        if (currentLang !== LANGUAGE_CONFIG.fallbackLanguage) {
           try {
             const fallbackData = await loadLocale(LANGUAGE_CONFIG.fallbackLanguage);
-            setTranslations(fallbackData);
-            console.log('I18nContext: Fallback translations loaded');
+            if (isActive && language === currentLang) {
+              setTranslations(fallbackData);
+              console.log('I18nContext: Fallback translations loaded');
+            }
           } catch (fallbackError) {
             console.error('I18nContext: Failed to load fallback translations:', fallbackError);
           }
         }
       } finally {
-        setIsLoading(false);
+        if (isActive && language === currentLang) {
+          setIsLoading(false);
+        }
       }
     };
 
     loadTranslations();
+    return () => {
+      isActive = false;
+    };
   }, [language]);
 
   const t = (key: string, params?: Record<string, string | number>): string => {
@@ -110,3 +111,5 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </I18nContext.Provider>
   );
 };
+
+export { I18nProvider };

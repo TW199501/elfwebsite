@@ -1,39 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ThemeContext } from './theme-context-utils';
 
-type Theme = 'blue' | 'orange' | 'white';
+import type { Theme, ThemeColors } from './theme-context-utils';
 
-interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
-  getThemeColors: () => ThemeColors;
-}
-
-interface ThemeColors {
-  primary: string;
-  secondary: string;
-  accent: string;
-  gradient: string;
-  gradientHover: string;
-  textGradient: string;
-  bgGradient: string;
-  glowColor: string;
-  borderColor: string;
-  bgColor: string;
-  textColor: string;
-  cardBg: string;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-};
-
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('white');
 
   useEffect(() => {
@@ -112,3 +82,5 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </ThemeContext.Provider>
   );
 };
+
+export { ThemeProvider };

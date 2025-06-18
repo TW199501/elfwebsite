@@ -34,6 +34,8 @@ Icons: Lucide React 0.344.0
 Linting: ESLint 9.9.1
 Type Checking: TypeScript ESLint 8.3.0
 CSS Processing: PostCSS 8.4.35 + Autoprefixer 10.4.18
+Headless UI: @headlessui/react 2.2.4  UI
+Lucide React: lucide-react 0.468.0    ICON
 ```
 
 ### 環境需求
@@ -58,6 +60,7 @@ npm: 10.0.0+
 - **語言切換**: 即時切換語言，無需重新載入頁面
 - **類型安全**: TypeScript 支援，確保翻譯鍵值的正確性
 - **檔案規範**: 使用 `i18n` 資料夾，檔案名稱統一小寫 (en.ts, zh-tw.ts, zh-cn.ts)
+
 
 ### 🎨 多主題系統
 - **白色主題**: 淘寶風格，純白背景 + 橘紅色主題

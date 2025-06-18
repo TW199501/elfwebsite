@@ -16,8 +16,8 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react';
-import { useTheme } from '../../contexts/theme-context';
-import { useI18n } from '../../contexts/i18n-context';
+import { useTheme } from '../../contexts/theme-context-utils';
+import { useI18n } from '../../contexts/i18n-context-utils';
 
 interface LoginPageMobileProps {
   onBack: () => void;

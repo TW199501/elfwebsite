@@ -1,6 +1,6 @@
 import React from 'react';
 import { Palette } from 'lucide-react';
-import { useTheme } from '../contexts/theme-context';
+import { useTheme } from '../contexts/theme-context-utils';
 
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme, getThemeColors } = useTheme();
