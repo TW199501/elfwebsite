@@ -1,6 +1,6 @@
 export default {
   // Header & Navigation
-  'header.title': 'YilFa Shipping Network',
+  'header.title': 'ELF EXPRESS',
   'header.subtitle': 'AI Smart Shipping • Global Direct to Taiwan',
   'nav.home': 'Home',
   'nav.aiShipping': 'AI Shipping',

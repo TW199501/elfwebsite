@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "lucide-react": "^0.344.0",
+    "lucide-react": "^0.468.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "vite-react-typescript-starter": "file:"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

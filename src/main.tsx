@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { I18nProvider } from './contexts/I18nContext';
+import { ThemeProvider } from './contexts/theme-context';
+import { I18nProvider } from './contexts/i18n-context';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

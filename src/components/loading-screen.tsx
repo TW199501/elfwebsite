@@ -1,6 +1,6 @@
 import React from 'react';
 import { Cpu } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../contexts/theme-context';
 
 const LoadingScreen: React.FC = () => {
   const { getThemeColors } = useTheme();

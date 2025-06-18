@@ -57,6 +57,7 @@ npm: 10.0.0+
 - **智能檢測**: 自動檢測瀏覽器語言並映射到對應語言
 - **語言切換**: 即時切換語言，無需重新載入頁面
 - **類型安全**: TypeScript 支援，確保翻譯鍵值的正確性
+- **檔案規範**: 使用 `i18n` 資料夾，檔案名稱統一小寫 (en.ts, zh-tw.ts, zh-cn.ts)
 
 ### 🎨 多主題系統
 - **白色主題**: 淘寶風格，純白背景 + 橘紅色主題
@@ -119,10 +120,10 @@ src/
 ├── contexts/               # React Context
 │   ├── ThemeContext.tsx    # 主題管理
 │   └── I18nContext.tsx     # 國際化管理
-├── locales/               # 國際化翻譯檔案
+├── i18n/                  # 國際化翻譯檔案 (符合規範)
 │   ├── en.ts              # 英文翻譯
-│   ├── zh-TW.ts           # 繁體中文翻譯
-│   ├── zh-CN.ts           # 簡體中文翻譯
+│   ├── zh-tw.ts           # 繁體中文翻譯 (小寫檔名)
+│   ├── zh-cn.ts           # 簡體中文翻譯 (小寫檔名)
 │   └── index.ts           # 載入器與配置
 ├── hooks/                 # 自定義 Hooks
 │   └── useIsMobile.ts     # 響應式檢測
@@ -329,26 +330,29 @@ const colors = getThemeColors();
 
 ## 🌍 國際化系統
 
-### 語言檔案結構
+### 語言檔案結構 (符合規範)
 ```
-src/locales/
-├── en.ts          # 英文翻譯檔案
-├── zh-TW.ts       # 繁體中文翻譯檔案
-├── zh-CN.ts       # 簡體中文翻譯檔案
-└── index.ts       # 載入器和配置
+src/i18n/              # 使用 i18n 資料夾名稱
+├── en.ts              # 英文翻譯檔案 (小寫)
+├── zh-tw.ts           # 繁體中文翻譯檔案 (小寫)
+├── zh-cn.ts           # 簡體中文翻譯檔案 (小寫)
+└── index.ts           # 載入器和配置
 ```
 
 ### 動態載入機制
 ```typescript
-// 按需載入語言檔案
+// 按需載入語言檔案 (使用小寫檔名)
 export const loadLocale = async (language: Language): Promise<Record<string, string>> => {
   switch (language) {
     case 'en':
       const enModule = await import('./en');
       return enModule.default;
     case 'zh-TW':
-      const zhTWModule = await import('./zh-TW');
+      const zhTWModule = await import('./zh-tw');  // 小寫檔名
       return zhTWModule.default;
+    case 'zh-CN':
+      const zhCNModule = await import('./zh-cn');  // 小寫檔名
+      return zhCNModule.default;
     // ...
   }
 };
@@ -460,9 +464,9 @@ const handleSearch = (query: string) => {
 
 ### 程式碼分割
 ```typescript
-// 動態導入語言檔案
+// 動態導入語言檔案 (小寫檔名)
 const loadLocale = async (language: Language) => {
-  const module = await import(`./locales/${language}`);
+  const module = await import(`./i18n/${language.toLowerCase()}`);
   return module.default;
 };
 
@@ -505,6 +509,8 @@ const translatedCategories = useMemo(() => {
 
 ### 技術升級
 - [x] React 19 升級 ✅
+- [x] i18n 資料夾規範化 ✅
+- [x] 檔案名稱小寫統一 ✅
 - [ ] 狀態管理庫 (Zustand/Redux Toolkit)
 - [ ] 測試框架 (Vitest/Testing Library)
 - [ ] 端到端測試 (Playwright)
@@ -517,6 +523,8 @@ const translatedCategories = useMemo(() => {
 - [ ] 自動批次處理優化
 
 ### 國際化優化
+- [x] 符合 i18n 規範的資料夾結構 ✅
+- [x] 檔案名稱統一小寫 ✅
 - [ ] 翻譯管理平台整合
 - [ ] 自動翻譯 API 整合
 - [ ] 翻譯品質檢測
@@ -531,8 +539,9 @@ const translatedCategories = useMemo(() => {
 
 ---
 
-**版本**: 2.1.0  
+**版本**: 2.2.0  
 **最後更新**: 2024年12月  
 **授權**: MIT License  
 **Node.js 版本**: 20.0.0+  
-**React 版本**: 19.0.0
+**React 版本**: 19.0.0  
+**i18n 規範**: 符合國際化標準，使用小寫檔名

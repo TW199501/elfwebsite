@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeft, MapPin, Clock, Star, Heart, Share2 } from 'lucide-react';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/theme-context';
+import { useI18n } from '../../contexts/i18n-context';
 
 interface KoreaHallMobileProps {
   onBack: () => void;
@@ -8,6 +9,7 @@ interface KoreaHallMobileProps {
 
 const KoreaHallMobile: React.FC<KoreaHallMobileProps> = ({ onBack }) => {
   const { getThemeColors } = useTheme();
+  const { t } = useI18n();
   const colors = getThemeColors();
 
   return (
@@ -21,7 +23,7 @@ const KoreaHallMobile: React.FC<KoreaHallMobileProps> = ({ onBack }) => {
           >
             <ArrowLeft className="w-6 h-6" />
           </button>
-          <h1 className="text-lg font-bold">Korea Hall</h1>
+          <h1 className="text-lg font-bold">{t('korea.title')}</h1>
           <div className="flex items-center gap-2">
             <button className={`p-2 rounded-lg ${colors.cardBg} border ${colors.borderColor} transition-colors`}>
               <Heart className="w-5 h-5" />
@@ -37,53 +39,53 @@ const KoreaHallMobile: React.FC<KoreaHallMobileProps> = ({ onBack }) => {
       <div className="p-4">
         {/* Store Info */}
         <div className={`${colors.cardBg} rounded-xl p-6 mb-6 border ${colors.borderColor}`}>
-          <h2 className="text-xl font-bold mb-3">Korea Hall - 韓國館</h2>
+          <h2 className="text-xl font-bold mb-3">{t('korea.title')}</h2>
           <div className="flex items-center gap-2 mb-3">
             <Star className="w-5 h-5 text-yellow-500 fill-current" />
             <span className="font-semibold">4.8</span>
-            <span className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>(2,341 reviews)</span>
+            <span className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>(2,341 {t('korea.product.reviews')})</span>
           </div>
           <div className="flex items-center gap-2 mb-3">
             <MapPin className="w-4 h-4 text-gray-500" />
-            <span className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>Korean Products • Premium Quality</span>
+            <span className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>{t('korea.subtitle')}</span>
           </div>
           <div className="flex items-center gap-2 mb-4">
             <Clock className="w-4 h-4 text-gray-500" />
-            <span className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>24/7 Available • Fast Shipping</span>
+            <span className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>{t('korea.available')}</span>
           </div>
           
           <div className="grid grid-cols-2 gap-3 mb-4">
             <div className={`${colors.cardBg} border ${colors.borderColor} rounded-lg p-3 text-center`}>
               <div className="text-lg font-bold text-red-500 mb-1">1000+</div>
-              <div className="text-xs text-gray-500">熱銷商品</div>
+              <div className="text-xs text-gray-500">{t('korea.stats.products')}</div>
             </div>
             <div className={`${colors.cardBg} border ${colors.borderColor} rounded-lg p-3 text-center`}>
               <div className="text-lg font-bold text-blue-500 mb-1">24H</div>
-              <div className="text-xs text-gray-500">快速出貨</div>
+              <div className="text-xs text-gray-500">{t('korea.stats.shipping')}</div>
             </div>
           </div>
           
           <div className="flex gap-3">
             <button className={`flex-1 bg-gradient-to-r ${colors.gradient} text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300`}>
-              開始購物
+              {t('korea.startShopping')}
             </button>
             <button className={`px-4 py-3 rounded-lg border ${colors.borderColor} ${colors.cardBg} transition-all duration-300`}>
-              客服
+              {t('korea.contact')}
             </button>
           </div>
         </div>
 
         {/* Menu Categories */}
         <div className="mb-6">
-          <h3 className="text-lg font-bold mb-4">商品分類</h3>
+          <h3 className="text-lg font-bold mb-4">{t('korea.categories.title')}</h3>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { name: 'K-Beauty', items: 120, icon: '💄' },
-              { name: 'K-Fashion', items: 85, icon: '👗' },
-              { name: 'K-Food', items: 65, icon: '🍜' },
-              { name: 'K-POP', items: 45, icon: '🎵' },
-              { name: '生活用品', items: 90, icon: '🏠' },
-              { name: '電子產品', items: 30, icon: '📱' }
+              { name: t('korea.categories.beauty'), items: 120, icon: '💄' },
+              { name: t('korea.categories.fashion'), items: 85, icon: '👗' },
+              { name: t('korea.categories.food'), items: 65, icon: '🍜' },
+              { name: t('korea.categories.kpop'), items: 45, icon: '🎵' },
+              { name: t('korea.categories.lifestyle'), items: 90, icon: '🏠' },
+              { name: t('korea.categories.electronics'), items: 30, icon: '📱' }
             ].map((category, index) => (
               <div
                 key={index}
@@ -99,7 +101,7 @@ const KoreaHallMobile: React.FC<KoreaHallMobileProps> = ({ onBack }) => {
 
         {/* Popular Items - Waterfall Layout */}
         <div>
-          <h3 className="text-lg font-bold mb-4">熱銷商品</h3>
+          <h3 className="text-lg font-bold mb-4">{t('korea.popular.title')}</h3>
           <div className="columns-2 gap-4">
             {[
               {
@@ -220,7 +222,7 @@ const KoreaHallMobile: React.FC<KoreaHallMobileProps> = ({ onBack }) => {
                   </div>
                   
                   <button className={`w-full bg-gradient-to-r ${colors.gradient} hover:${colors.gradientHover} text-white py-2 rounded-lg text-sm font-medium transition-all duration-300`}>
-                    加入購物車
+                    {t('korea.product.addToCart')}
                   </button>
                 </div>
               </div>

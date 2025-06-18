@@ -10,12 +10,15 @@ import {
   Globe
 } from 'lucide-react';
 import { ThemeColors } from '../../types';
+import { useI18n } from '../../contexts/i18n-context';
 
 interface DesktopFooterProps {
   colors: ThemeColors;
 }
 
 const DesktopFooter: React.FC<DesktopFooterProps> = ({ colors }) => {
+  const { t } = useI18n();
+
   return (
     <footer className={`relative z-10 ${colors.cardBg} border-t ${colors.borderColor} mt-16`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -27,44 +30,44 @@ const DesktopFooter: React.FC<DesktopFooterProps> = ({ colors }) => {
                 <Cpu className="w-6 h-6 text-white" />
               </div>
               <span className={`text-lg font-bold bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-                智能集運網
+                {t('footer.company.title')}
               </span>
             </div>
             <p className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} mb-4`}>
-              運用人工智慧、5G、區塊鏈等前沿科技，為台灣客戶提供最智能的全球購物解決方案。
+              {t('footer.company.desc')}
             </p>
           </div>
 
           {/* AI智能服務 */}
           <div>
-            <h3 className={`text-lg font-bold ${colors.textColor} mb-4`}>AI智能服務</h3>
+            <h3 className={`text-lg font-bold ${colors.textColor} mb-4`}>{t('footer.services.title')}</h3>
             <ul className="space-y-2">
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} hover:${colors.textColor} cursor-pointer transition-colors duration-300 flex items-center space-x-2`}>
                 <Bot className="w-4 h-4" />
-                <span>AI中國集運</span>
+                <span>{t('footer.services.china')}</span>
               </li>
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} hover:${colors.textColor} cursor-pointer transition-colors duration-300 flex items-center space-x-2`}>
                 <Bot className="w-4 h-4" />
-                <span>智能日本集運</span>
+                <span>{t('footer.services.japan')}</span>
               </li>
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} hover:${colors.textColor} cursor-pointer transition-colors duration-300 flex items-center space-x-2`}>
                 <Truck className="w-4 h-4" />
-                <span>5G韓國集運</span>
+                <span>{t('footer.services.korea')}</span>
               </li>
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} hover:${colors.textColor} cursor-pointer transition-colors duration-300 flex items-center space-x-2`}>
                 <Package className="w-4 h-4" />
-                <span>雲端美國集運</span>
+                <span>{t('footer.services.usa')}</span>
               </li>
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} hover:${colors.textColor} cursor-pointer transition-colors duration-300 flex items-center space-x-2`}>
                 <Globe className="w-4 h-4" />
-                <span>區塊鏈德國集運</span>
+                <span>{t('footer.services.germany')}</span>
               </li>
             </ul>
           </div>
 
           {/* 各國館代購 */}
           <div>
-            <h3 className={`text-lg font-bold ${colors.textColor} mb-4`}>各國館代購</h3>
+            <h3 className={`text-lg font-bold ${colors.textColor} mb-4`}>{t('footer.halls.title')}</h3>
             <ul className="space-y-2">
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} hover:${colors.textColor} cursor-pointer transition-colors duration-300`}>
                 🇰🇷 韓國館
@@ -86,23 +89,23 @@ const DesktopFooter: React.FC<DesktopFooterProps> = ({ colors }) => {
 
           {/* 智能聯絡 */}
           <div>
-            <h3 className={`text-lg font-bold ${colors.textColor} mb-4`}>智能聯絡</h3>
+            <h3 className={`text-lg font-bold ${colors.textColor} mb-4`}>{t('footer.contact.title')}</h3>
             <ul className="space-y-2">
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} flex items-center space-x-2`}>
                 <MessageCircle className="w-4 h-4" />
-                <span>AI客服: 02-1234-5678</span>
+                <span>{t('footer.contact.phone')}</span>
               </li>
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} flex items-center space-x-2`}>
                 <Bot className="w-4 h-4" />
-                <span>ai@yilfa.com.tw</span>
+                <span>{t('footer.contact.email')}</span>
               </li>
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} flex items-center space-x-2`}>
                 <HelpCircle className="w-4 h-4" />
-                <span>AI服務: 24/7全年無休</span>
+                <span>{t('footer.contact.service')}</span>
               </li>
               <li className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} flex items-center space-x-2`}>
                 <Route className="w-4 h-4" />
-                <span>台北市信義區科技大樓</span>
+                <span>{t('footer.contact.address')}</span>
               </li>
             </ul>
           </div>
@@ -111,7 +114,7 @@ const DesktopFooter: React.FC<DesktopFooterProps> = ({ colors }) => {
         {/* 版權資訊 */}
         <div className={`border-t ${colors.borderColor} mt-8 pt-8 text-center`}>
           <p className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-400' : 'text-gray-500'}`}>
-            © 2025 智能集運網 AI-Powered Shipping. 版權所有 | Powered by AI & 5G Technology
+            {t('footer.copyright')}
           </p>
         </div>
       </div>

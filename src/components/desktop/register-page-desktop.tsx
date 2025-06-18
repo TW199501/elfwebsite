@@ -20,7 +20,8 @@ import {
   Rocket,
   Award
 } from 'lucide-react';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/theme-context';
+import { useI18n } from '../../contexts/i18n-context';
 
 interface RegisterPageDesktopProps {
   onBack: () => void;
@@ -48,6 +49,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
   const [passwordStrength, setPasswordStrength] = useState(0);
 
   const { getThemeColors } = useTheme();
+  const { t } = useI18n();
   const colors = getThemeColors();
 
   useEffect(() => {
@@ -126,11 +128,11 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
   };
 
   const getPasswordStrengthText = () => {
-    if (passwordStrength <= 1) return '弱';
-    if (passwordStrength <= 2) return '普通';
-    if (passwordStrength <= 3) return '中等';
-    if (passwordStrength <= 4) return '強';
-    return '非常強';
+    if (passwordStrength <= 1) return t('password.strength.weak');
+    if (passwordStrength <= 2) return t('password.strength.fair');
+    if (passwordStrength <= 3) return t('password.strength.good');
+    if (passwordStrength <= 4) return t('password.strength.strong');
+    return t('password.strength.excellent');
   };
 
   return (
@@ -158,7 +160,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
             className={`flex items-center space-x-2 text-gray-500 hover:${colors.textColor} transition-colors duration-300`}
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>返回首頁</span>
+            <span>{t('common.back')}</span>
           </button>
           <div className="flex items-center space-x-3">
             <div className={`w-10 h-10 bg-gradient-to-br ${colors.primary} rounded-lg flex items-center justify-center`}>
@@ -166,7 +168,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
             </div>
             <div>
               <span className={`text-lg font-bold bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-                智能集運網
+                {t('header.title')}
               </span>
               <div className="text-xs text-gray-500">AI智能註冊系統</div>
             </div>
@@ -189,10 +191,10 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   </div>
                   <h1 className="text-3xl font-bold mb-2">
                     <span className={`bg-gradient-to-r ${colors.secondary} bg-clip-text text-transparent`}>
-                      加入AI集運
+                      {t('register.title')}
                     </span>
                   </h1>
-                  <p className="text-gray-500">開啟您的智能物流新體驗</p>
+                  <p className="text-gray-500">{t('register.subtitle')}</p>
                 </div>
 
                 {/* Welcome Benefits */}
@@ -204,13 +206,13 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   </div>
                   <div className={`${colors.cardBg} border-2 ${colors.borderColor} rounded-lg p-4 text-center`}>
                     <Star className={`w-8 h-8 mx-auto mb-2`} style={{ color: colors.textGradient.includes('orange') ? '#f97316' : '#3b82f6' }} />
-                    <div className={`text-sm font-medium ${colors.textColor}`}>VIP服務</div>
-                    <div className="text-xs text-gray-500">專屬客服</div>
+                    <div className={`text-sm font-medium ${colors.textColor}`}>{t('register.benefits.vip')}</div>
+                    <div className="text-xs text-gray-500">{t('register.benefits.vip.desc')}</div>
                   </div>
                   <div className={`${colors.cardBg} border-2 ${colors.borderColor} rounded-lg p-4 text-center`}>
                     <Crown className={`w-8 h-8 mx-auto mb-2`} style={{ color: colors.textGradient.includes('orange') ? '#a855f7' : '#8b5cf6' }} />
-                    <div className={`text-sm font-medium ${colors.textColor}`}>AI優先</div>
-                    <div className="text-xs text-gray-500">智能推薦</div>
+                    <div className={`text-sm font-medium ${colors.textColor}`}>{t('register.benefits.ai')}</div>
+                    <div className="text-xs text-gray-500">{t('register.benefits.ai.desc')}</div>
                   </div>
                 </div>
 
@@ -219,7 +221,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   {/* 姓名 */}
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      姓名 *
+                      {t('register.name.label')} *
                     </label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -227,7 +229,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                         type="text"
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        placeholder="請輸入您的姓名"
+                        placeholder={t('register.name.placeholder')}
                         className={`w-full pl-10 pr-4 py-3 ${colors.cardBg} border-2 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300 ${
                           errors.name ? 'border-red-500' : colors.borderColor
                         }`}
@@ -239,7 +241,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   {/* 電子信箱 */}
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      電子信箱 *
+                      {t('register.email.label')} *
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -247,7 +249,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                         type="email"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        placeholder="請輸入您的信箱"
+                        placeholder={t('register.email.placeholder')}
                         className={`w-full pl-10 pr-4 py-3 ${colors.cardBg} border-2 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300 ${
                           errors.email ? 'border-red-500' : colors.borderColor
                         }`}
@@ -259,7 +261,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   {/* 手機號碼 */}
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      手機號碼 *
+                      {t('register.phone.label')} *
                     </label>
                     <div className="relative">
                       <Smartphone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -267,7 +269,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                        placeholder="09xxxxxxxx"
+                        placeholder={t('register.phone.placeholder')}
                         className={`w-full pl-10 pr-4 py-3 ${colors.cardBg} border-2 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300 ${
                           errors.phone ? 'border-red-500' : colors.borderColor
                         }`}
@@ -279,7 +281,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   {/* 生日 */}
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      生日
+                      {t('register.birthday.label')}
                     </label>
                     <div className="relative">
                       <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -295,7 +297,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   {/* 密碼 */}
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      密碼 *
+                      {t('register.password.label')} *
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -303,7 +305,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                         type={showPassword ? 'text' : 'password'}
                         value={formData.password}
                         onChange={(e) => handleInputChange('password', e.target.value)}
-                        placeholder="至少8個字元"
+                        placeholder={t('register.password.placeholder')}
                         className={`w-full pl-10 pr-12 py-3 ${colors.cardBg} border-2 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300 ${
                           errors.password ? 'border-red-500' : colors.borderColor
                         }`}
@@ -335,7 +337,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   {/* 確認密碼 */}
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      確認密碼 *
+                      {t('register.confirmPassword.label')} *
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -343,7 +345,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                         type={showConfirmPassword ? 'text' : 'password'}
                         value={formData.confirmPassword}
                         onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                        placeholder="再次輸入密碼"
+                        placeholder={t('register.confirmPassword.placeholder')}
                         className={`w-full pl-10 pr-12 py-3 ${colors.cardBg} border-2 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300 ${
                           errors.confirmPassword ? 'border-red-500' : colors.borderColor
                         }`}
@@ -363,14 +365,14 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                 {/* 地址 */}
                 <div className="mt-6">
                   <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                    收件地址 *
+                    {t('register.address.label')} *
                   </label>
                   <div className="relative">
                     <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-500" />
                     <textarea
                       value={formData.address}
                       onChange={(e) => handleInputChange('address', e.target.value)}
-                      placeholder="請輸入完整收件地址"
+                      placeholder={t('register.address.placeholder')}
                       rows={3}
                       className={`w-full pl-10 pr-4 py-3 ${colors.cardBg} border-2 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300 resize-none ${
                         errors.address ? 'border-red-500' : colors.borderColor
@@ -383,7 +385,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                 {/* 推薦碼 */}
                 <div className="mt-6">
                   <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                    推薦碼 (選填)
+                    {t('register.referral.label')}
                   </label>
                   <div className="relative">
                     <Award className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -391,7 +393,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                       type="text"
                       value={formData.referralCode}
                       onChange={(e) => handleInputChange('referralCode', e.target.value)}
-                      placeholder="輸入推薦碼可獲得額外優惠"
+                      placeholder={t('register.referral.placeholder')}
                       className={`w-full pl-10 pr-4 py-3 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300`}
                     />
                   </div>
@@ -405,13 +407,13 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                       className="mt-1 rounded border-gray-500 bg-transparent text-orange-500 focus:ring-orange-500"
                     />
                     <span>
-                      我已閱讀並同意
+                      {t('register.terms')}
                       <a href="#" className={`hover:text-orange-400 transition-colors duration-300 mx-1`}
                         style={{ 
                           color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                         }}
                       >
-                        服務條款
+                        {t('register.terms.service')}
                       </a>
                       和
                       <a href="#" className={`hover:text-orange-400 transition-colors duration-300 mx-1`}
@@ -419,7 +421,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                           color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                         }}
                       >
-                        隱私政策
+                        {t('register.terms.privacy')}
                       </a>
                     </span>
                   </label>
@@ -434,19 +436,19 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                   {isLoading ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>AI處理中...</span>
+                      <span>{t('register.loading')}</span>
                     </>
                   ) : (
                     <>
                       <Rocket className="w-5 h-5" />
-                      <span>創建AI帳戶</span>
+                      <span>{t('register.button')}</span>
                     </>
                   )}
                 </button>
 
                 {/* Login Link */}
                 <div className="text-center mt-6">
-                  <span className="text-gray-500">已經有帳號了？</span>
+                  <span className="text-gray-500">{t('register.login.text')}</span>
                   <button 
                     onClick={onGoToLogin}
                     className={`hover:text-orange-400 transition-colors duration-300 ml-1`}
@@ -454,7 +456,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                       color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                     }}
                   >
-                    立即登入
+                    {t('register.login.link')}
                   </button>
                 </div>
               </>
@@ -473,20 +475,20 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                     </span>
                   </h1>
                   <p className="text-gray-500">
-                    驗證碼已發送至 {formData.phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1***$3')}
+                    {t('verification.subtitle', { phone: formData.phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1***$3') })}
                   </p>
                 </div>
 
                 <div className="space-y-6">
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      驗證碼
+                      {t('verification.code.label')}
                     </label>
                     <input
                       type="text"
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
-                      placeholder="請輸入6位數驗證碼"
+                      placeholder={t('verification.code.placeholder')}
                       maxLength={6}
                       className={`w-full px-4 py-3 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 text-center text-2xl tracking-widest transition-all duration-300`}
                     />
@@ -494,7 +496,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
 
                   <div className="text-center">
                     {countdown > 0 ? (
-                      <span className="text-gray-500">重新發送驗證碼 ({countdown}s)</span>
+                      <span className="text-gray-500">{t('verification.resend.countdown', { countdown })}</span>
                     ) : (
                       <button
                         onClick={resendCode}
@@ -503,7 +505,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                           color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                         }}
                       >
-                        重新發送驗證碼
+                        {t('verification.resend')}
                       </button>
                     )}
                   </div>
@@ -516,12 +518,12 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                     {isLoading ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        <span>驗證中...</span>
+                        <span>{t('verification.loading')}</span>
                       </>
                     ) : (
                       <>
                         <CheckCircle className="w-5 h-5" />
-                        <span>完成驗證</span>
+                        <span>{t('verification.button')}</span>
                       </>
                     )}
                   </button>
@@ -540,44 +542,44 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
 
                   <h1 className="text-4xl font-bold mb-4">
                     <span className={`bg-gradient-to-r ${colors.gradient} bg-clip-text text-transparent`}>
-                      歡迎加入！
+                      {t('register.success.title')}
                     </span>
                   </h1>
                   
                   <p className={`text-xl ${colors.textColor} mb-8`}>
-                    🎉 恭喜您成功註冊智能集運網
+                    {t('register.success.subtitle')}
                   </p>
 
                   {/* Welcome Benefits */}
                   <div className={`${colors.cardBg} border-2 ${colors.borderColor} rounded-xl p-6 mb-8`}>
                     <h3 className={`text-lg font-bold ${colors.textColor} mb-4 flex items-center justify-center space-x-2`}>
                       <Gift className={`w-5 h-5`} style={{ color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee' }} />
-                      <span>新會員專屬禮遇</span>
+                      <span>{t('register.success.benefits.title')}</span>
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex items-center space-x-3">
                         <div className={`w-8 h-8 bg-gradient-to-r ${colors.primary} rounded-full flex items-center justify-center`}>
                           <span className="text-white text-sm font-bold">1</span>
                         </div>
-                        <span className={colors.textColor}>NT$100 運費優惠券</span>
+                        <span className={colors.textColor}>{t('register.success.benefit1')}</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className={`w-8 h-8 bg-gradient-to-r ${colors.secondary} rounded-full flex items-center justify-center`}>
                           <span className="text-white text-sm font-bold">2</span>
                         </div>
-                        <span className={colors.textColor}>VIP專屬客服</span>
+                        <span className={colors.textColor}>{t('register.success.benefit2')}</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className={`w-8 h-8 bg-gradient-to-r ${colors.accent} rounded-full flex items-center justify-center`}>
                           <span className="text-white text-sm font-bold">3</span>
                         </div>
-                        <span className={colors.textColor}>AI智能推薦</span>
+                        <span className={colors.textColor}>{t('register.success.benefit3')}</span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <div className={`w-8 h-8 bg-gradient-to-r ${colors.gradient} rounded-full flex items-center justify-center`}>
                           <span className="text-white text-sm font-bold">4</span>
                         </div>
-                        <span className={colors.textColor}>首次集運免手續費</span>
+                        <span className={colors.textColor}>{t('register.success.benefit4')}</span>
                       </div>
                     </div>
                   </div>
@@ -588,14 +590,14 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
                       className={`w-full bg-gradient-to-r ${colors.gradient} hover:${colors.gradientHover} text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2`}
                     >
                       <Zap className="w-5 h-5" />
-                      <span>立即登入開始使用</span>
+                      <span>{t('register.success.loginButton')}</span>
                     </button>
                     
                     <button
                       onClick={onBack}
                       className={`w-full ${colors.cardBg} border-2 ${colors.borderColor} ${colors.textColor} py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-md`}
                     >
-                      返回首頁
+                      {t('register.success.homeButton')}
                     </button>
                   </div>
                 </div>
@@ -607,7 +609,7 @@ const RegisterPageDesktop: React.FC<RegisterPageDesktopProps> = ({ onBack, onGoT
           <div className="mt-6 text-center">
             <div className="flex items-center justify-center space-x-2 text-gray-500 text-sm">
               <Shield className="w-4 h-4" />
-              <span>您的個人資料受到256位元加密技術保護</span>
+              <span>{t('security.notice')}</span>
             </div>
           </div>
         </div>

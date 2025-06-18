@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { I18nProvider, useI18n } from './contexts/I18nContext';
-import HomePageRouter from './components/HomePageRouter';
-import KoreaHallRouter from './components/KoreaHallRouter';
-import LoginPageRouter from './components/LoginPageRouter';
-import RegisterPageRouter from './components/RegisterPageRouter';
-import LoadingScreen from './components/LoadingScreen';
+import { ThemeProvider } from './contexts/theme-context';
+import { I18nProvider, useI18n } from './contexts/i18n-context';
+import HomePageRouter from './components/home-page-router';
+import KoreaHallRouter from './components/korea-hall-router';
+import LoginPageRouter from './components/login-page-router';
+import RegisterPageRouter from './components/register-page-router';
+import LoadingScreen from './components/loading-screen';
 
 const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<'home' | 'korea' | 'login' | 'register'>('home');

@@ -1,7 +1,7 @@
 import React from 'react';
-import { useIsMobile } from '../hooks/useIsMobile';
-import RegisterPageDesktop from './desktop/RegisterPageDesktop';
-import RegisterPageMobile from './mobile/RegisterPageMobile';
+import { useIsMobile } from '../hooks/use-is-mobile';
+import RegisterPageDesktop from './desktop/register-page-desktop';
+import RegisterPageMobile from './mobile/register-page-mobile';
 
 interface RegisterPageRouterProps {
   onBack: () => void;

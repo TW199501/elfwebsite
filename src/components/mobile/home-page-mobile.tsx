@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Bot,
   Truck,
@@ -11,11 +11,17 @@ import {
   Route,
   QrCode,
   Eye,
-  Cpu
+  Cpu,
+  Home,
+  ShoppingBag
 } from 'lucide-react';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/theme-context';
+import { useI18n } from '../../contexts/i18n-context';
 import { PageType } from '../../types';
-import ThemeToggle from '../ThemeToggle';
+import ThemeToggle from '../theme-toggle';
+import LanguageToggle from '../language-toggle';
+import BottomNavigation from './bottom-navigation';
+import { getBottomNavItems } from '../../utils/constants';
 
 interface HomePageMobileProps {
   onPageChange: (page: PageType) => void;
@@ -23,10 +29,33 @@ interface HomePageMobileProps {
 
 const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
   const { getThemeColors } = useTheme();
+  const { t } = useI18n();
   const colors = getThemeColors();
+  const [activeTab, setActiveTab] = useState('home');
+
+  const bottomNavItems = getBottomNavItems(t);
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    // 根據 tab 切換頁面
+    switch (tabId) {
+      case 'home':
+        // 已經在首頁
+        break;
+      case 'search':
+        // 可以觸發搜尋功能
+        break;
+      case 'shop':
+        onPageChange('korea'); // 導向韓國館
+        break;
+      case 'profile':
+        onPageChange('login'); // 導向登入頁面
+        break;
+    }
+  };
 
   return (
-    <div className={`min-h-screen ${colors.bgColor} ${colors.textColor} overflow-hidden relative`}>
+    <div className={`min-h-screen ${colors.bgColor} ${colors.textColor} overflow-hidden relative pb-20`}>
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
         <div className={`absolute inset-0 bg-gradient-to-br ${colors.bgGradient}`}></div>
@@ -49,14 +78,15 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
             <div>
               <h1 className="text-lg font-bold">
                 <span className={`bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-                  一路發集運網
+                  {t('header.title')}
                 </span>
               </h1>
-              <p className="text-xs text-gray-500">AI智能集運 • 全球直送台灣</p>
+              <p className="text-xs text-gray-500">{t('header.subtitle')}</p>
             </div>
           </div>
 
           <div className="flex items-center space-x-4">
+            <LanguageToggle />
             <ThemeToggle />
           </div>
         </div>
@@ -69,34 +99,34 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
           <div className="mb-6">
             <div className={`inline-flex items-center space-x-2 px-3 py-2 ${colors.cardBg} rounded-full mb-4`}>
               <div className={`w-2 h-2 bg-gradient-to-r ${colors.primary} rounded-full animate-pulse`}></div>
-              <span className="text-xs font-medium">AI智能的智慧物流</span>
+              <span className="text-xs font-medium">{t('home.hero.badge')}</span>
             </div>
             
             <h1 className="text-3xl font-bold mb-4">
               <span className={`bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-                智能集運網
+                {t('home.hero.title')}
               </span>
             </h1>
             
             <div className="flex items-center justify-center space-x-2 mb-4 text-sm flex-wrap">
               <span className="flex items-center space-x-1">
                 <Bot className="w-4 h-4 text-cyan-400" />
-                <span>AI智能</span>
+                <span>{t('home.hero.features.ai')}</span>
               </span>
               <span>•</span>
               <span className="flex items-center space-x-1">
                 <Truck className="w-4 h-4 text-purple-400" />
-                <span>5G追蹤</span>
+                <span>{t('home.hero.features.5g')}</span>
               </span>
               <span>•</span>
               <span className="flex items-center space-x-1">
                 <Package className="w-4 h-4 text-green-400" />
-                <span>區塊鏈安全</span>
+                <span>{t('home.hero.features.blockchain')}</span>
               </span>
             </div>
             
             <p className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} mb-6`}>
-              上海 • 深圳 • 日本 • 韓國 • 美國 • 德國 → 台灣
+              {t('home.hero.subtitle')}
             </p>
           </div>
         </div>
@@ -104,10 +134,10 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
         {/* Stats Section */}
         <div className="grid grid-cols-2 gap-6 text-center mb-12">
           {[
-            { number: '99.9%', label: 'AI準確率', color: 'text-cyan-400' },
-            { number: '5G', label: '實時追蹤', color: 'text-purple-400' },
-            { number: '24/7', label: 'AI客服', color: 'text-blue-400' },
-            { number: '50萬+', label: '智能配送', color: 'text-red-400' }
+            { number: '99.9%', label: t('stats.accuracy'), color: 'text-cyan-400' },
+            { number: '5G', label: t('stats.tracking'), color: 'text-purple-400' },
+            { number: '24/7', label: t('stats.service'), color: 'text-blue-400' },
+            { number: '50萬+', label: t('stats.delivery'), color: 'text-red-400' }
           ].map((stat, index) => (
             <div key={index} className="animate-fade-in-delay">
               <div className={`text-2xl font-bold mb-1 ${stat.color}`}>
@@ -136,12 +166,12 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
           <div className="relative">
             <input
               type="text"
-              placeholder="輸入運單號進行AI智能追蹤"
+              placeholder={t('search.placeholder')}
               className={`w-full pl-4 pr-20 py-3 ${colors.bgColor === 'bg-white' ? 'bg-gray-50' : 'bg-gray-800/50'} border-2 ${colors.borderColor} rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none ${colors.textColor} placeholder-gray-500 text-sm`}
             />
             <button className={`absolute right-1 top-1/2 transform -translate-y-1/2 bg-gradient-to-r ${colors.gradient} hover:${colors.gradientHover} text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center space-x-1`}>
               <Eye className="w-4 h-4" />
-              <span className="text-xs">追蹤</span>
+              <span className="text-xs">{t('search.button')}</span>
             </button>
           </div>
         </div>
@@ -151,11 +181,11 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
           <div className="text-center mb-6">
             <h2 className="text-xl font-bold mb-2">
               <span className={`bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-                AI智能服務
+                {t('services.title')}
               </span>
             </h2>
             <p className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>
-              運用最新AI技術，提供您最優質的集運體驗
+              {t('services.subtitle')}
             </p>
           </div>
 
@@ -163,26 +193,26 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
             {[
               {
                 icon: Calculator,
-                title: 'AI運費計算',
-                description: '精準計算成本',
+                title: t('services.calculator.title'),
+                description: t('services.calculator.desc'),
                 color: colors.primary
               },
               {
                 icon: MessageCircle,
-                title: '智能客服',
-                description: '24小時支援',
+                title: t('services.support.title'),
+                description: t('services.support.desc'),
                 color: colors.secondary
               },
               {
                 icon: HelpCircle,
-                title: '線上諮詢',
-                description: '即時解答',
+                title: t('services.consultation.title'),
+                description: t('services.consultation.desc'),
                 color: colors.accent
               },
               {
                 icon: Route,
-                title: '智能路線',
-                description: '最佳規劃',
+                title: t('services.route.title'),
+                description: t('services.route.desc'),
                 color: colors.gradient
               }
             ].map((service, index) => (
@@ -207,26 +237,26 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
           {[
             {
               icon: '🇰🇷',
-              title: '韓國館',
-              description: 'K-Beauty、K-Fashion、K-POP周邊',
+              title: t('halls.korea.title'),
+              description: t('halls.korea.desc'),
               action: () => onPageChange('korea')
             },
             {
               icon: '🇯🇵',
-              title: '日本館',
-              description: '日系美妝、動漫周邊、電子產品',
+              title: t('halls.japan.title'),
+              description: t('halls.japan.desc'),
               action: () => {}
             },
             {
               icon: '🇺🇸',
-              title: '美國館',
-              description: '品牌服飾、保健食品、3C產品',
+              title: t('halls.usa.title'),
+              description: t('halls.usa.desc'),
               action: () => {}
             },
             {
               icon: '🇩🇪',
-              title: '德國館',
-              description: '精品工具、汽車用品、保養品',
+              title: t('halls.germany.title'),
+              description: t('halls.germany.desc'),
               action: () => {}
             }
           ].map((item, index) => (
@@ -250,11 +280,11 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
         <div className={`${colors.cardBg} backdrop-blur-sm rounded-2xl p-6 text-center animate-fade-in-delay-2`}>
           <h2 className="text-2xl font-bold mb-3">
             <span className={`bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-              立即開始您的集運之旅
+              {t('cta.title')}
             </span>
           </h2>
           <p className={`text-sm ${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'} mb-6`}>
-            加入一路發集運網，享受AI智能集運服務
+            {t('cta.subtitle')}
           </p>
           
           <div className="flex flex-col space-y-3">
@@ -263,7 +293,7 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
               className={`w-full bg-gradient-to-r ${colors.gradient} hover:${colors.gradientHover} text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2`}
             >
               <Globe className="w-5 h-5" />
-              <span>開始集運</span>
+              <span>{t('cta.startShipping')}</span>
             </button>
             
             <button
@@ -271,11 +301,19 @@ const HomePageMobile: React.FC<HomePageMobileProps> = ({ onPageChange }) => {
               className={`w-full ${colors.cardBg} border-2 ${colors.borderColor} ${colors.textColor} px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2`}
             >
               <User className="w-5 h-5" />
-              <span>會員登入</span>
+              <span>{t('cta.memberLogin')}</span>
             </button>
           </div>
         </div>
       </div>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation
+        items={bottomNavItems}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        colors={colors}
+      />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeft, MapPin, Clock, Star, Heart, Share2 } from 'lucide-react';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/theme-context';
+import { useI18n } from '../../contexts/i18n-context';
 
 interface KoreaHallDesktopProps {
   onBack: () => void;
@@ -8,6 +9,7 @@ interface KoreaHallDesktopProps {
 
 const KoreaHallDesktop: React.FC<KoreaHallDesktopProps> = ({ onBack }) => {
   const { getThemeColors } = useTheme();
+  const { t } = useI18n();
   const colors = getThemeColors();
 
   return (
@@ -20,9 +22,9 @@ const KoreaHallDesktop: React.FC<KoreaHallDesktopProps> = ({ onBack }) => {
             className={`flex items-center space-x-2 p-3 rounded-lg ${colors.cardBg} border ${colors.borderColor} hover:shadow-md transition-all duration-300`}
           >
             <ArrowLeft className="w-6 h-6" />
-            <span>返回首頁</span>
+            <span>{t('common.back')}</span>
           </button>
-          <h1 className="text-2xl font-bold">Korea Hall - 韓國館</h1>
+          <h1 className="text-2xl font-bold">{t('korea.title')}</h1>
           <div className="flex items-center gap-3">
             <button className={`p-3 rounded-lg ${colors.cardBg} border ${colors.borderColor} hover:shadow-md transition-all duration-300`}>
               <Heart className="w-6 h-6" />
@@ -40,27 +42,27 @@ const KoreaHallDesktop: React.FC<KoreaHallDesktopProps> = ({ onBack }) => {
         <div className={`${colors.cardBg} rounded-2xl p-8 mb-8 border ${colors.borderColor} shadow-lg`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-3xl font-bold mb-4">Korea Hall - 韓國館</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('korea.title')}</h2>
               <div className="flex items-center gap-3 mb-4">
                 <Star className="w-6 h-6 text-yellow-500 fill-current" />
                 <span className="text-xl font-semibold">4.8</span>
-                <span className={`${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>(2,341 reviews)</span>
+                <span className={`${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>(2,341 {t('korea.product.reviews')})</span>
               </div>
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-5 h-5 text-gray-500" />
-                <span className={`${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>Korean Products • Premium Quality</span>
+                <span className={`${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>{t('korea.subtitle')}</span>
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <Clock className="w-5 h-5 text-gray-500" />
-                <span className={`${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>24/7 Available • Fast Shipping</span>
+                <span className={`${colors.textColor === 'text-white' ? 'text-gray-300' : 'text-gray-600'}`}>{t('korea.available')}</span>
               </div>
               
               <div className="flex gap-4">
                 <button className={`flex-1 bg-gradient-to-r ${colors.gradient} text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105`}>
-                  開始購物
+                  {t('korea.startShopping')}
                 </button>
                 <button className={`px-6 py-4 rounded-xl border ${colors.borderColor} ${colors.cardBg} hover:shadow-md transition-all duration-300`}>
-                  聯絡客服
+                  {t('korea.contact')}
                 </button>
               </div>
             </div>
@@ -68,19 +70,19 @@ const KoreaHallDesktop: React.FC<KoreaHallDesktopProps> = ({ onBack }) => {
             <div className="grid grid-cols-2 gap-4">
               <div className={`${colors.cardBg} border ${colors.borderColor} rounded-xl p-4 text-center`}>
                 <div className="text-2xl font-bold text-red-500 mb-2">1000+</div>
-                <div className="text-sm text-gray-500">熱銷商品</div>
+                <div className="text-sm text-gray-500">{t('korea.stats.products')}</div>
               </div>
               <div className={`${colors.cardBg} border ${colors.borderColor} rounded-xl p-4 text-center`}>
                 <div className="text-2xl font-bold text-blue-500 mb-2">24H</div>
-                <div className="text-sm text-gray-500">快速出貨</div>
+                <div className="text-sm text-gray-500">{t('korea.stats.shipping')}</div>
               </div>
               <div className={`${colors.cardBg} border ${colors.borderColor} rounded-xl p-4 text-center`}>
                 <div className="text-2xl font-bold text-green-500 mb-2">98%</div>
-                <div className="text-sm text-gray-500">好評率</div>
+                <div className="text-sm text-gray-500">{t('korea.stats.rating')}</div>
               </div>
               <div className={`${colors.cardBg} border ${colors.borderColor} rounded-xl p-4 text-center`}>
                 <div className="text-2xl font-bold text-purple-500 mb-2">VIP</div>
-                <div className="text-sm text-gray-500">專屬服務</div>
+                <div className="text-sm text-gray-500">{t('korea.stats.vip')}</div>
               </div>
             </div>
           </div>
@@ -88,15 +90,15 @@ const KoreaHallDesktop: React.FC<KoreaHallDesktopProps> = ({ onBack }) => {
 
         {/* Menu Categories */}
         <div className="mb-8">
-          <h3 className="text-2xl font-bold mb-6">商品分類</h3>
+          <h3 className="text-2xl font-bold mb-6">{t('korea.categories.title')}</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {[
-              { name: 'K-Beauty 美妝', items: 120, icon: '💄' },
-              { name: 'K-Fashion 服飾', items: 85, icon: '👗' },
-              { name: 'K-Food 美食', items: 65, icon: '🍜' },
-              { name: 'K-POP 周邊', items: 45, icon: '🎵' },
-              { name: '生活用品', items: 90, icon: '🏠' },
-              { name: '電子產品', items: 30, icon: '📱' }
+              { name: t('korea.categories.beauty'), items: 120, icon: '💄' },
+              { name: t('korea.categories.fashion'), items: 85, icon: '👗' },
+              { name: t('korea.categories.food'), items: 65, icon: '🍜' },
+              { name: t('korea.categories.kpop'), items: 45, icon: '🎵' },
+              { name: t('korea.categories.lifestyle'), items: 90, icon: '🏠' },
+              { name: t('korea.categories.electronics'), items: 30, icon: '📱' }
             ].map((category, index) => (
               <div
                 key={index}
@@ -112,7 +114,7 @@ const KoreaHallDesktop: React.FC<KoreaHallDesktopProps> = ({ onBack }) => {
 
         {/* Popular Items */}
         <div>
-          <h3 className="text-2xl font-bold mb-6">熱銷商品</h3>
+          <h3 className="text-2xl font-bold mb-6">{t('korea.popular.title')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
@@ -199,7 +201,7 @@ const KoreaHallDesktop: React.FC<KoreaHallDesktopProps> = ({ onBack }) => {
                   </div>
                   
                   <button className={`w-full bg-gradient-to-r ${colors.gradient} hover:${colors.gradientHover} text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105`}>
-                    加入購物車
+                    {t('korea.product.addToCart')}
                   </button>
                 </div>
               </div>

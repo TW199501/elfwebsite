@@ -1,7 +1,7 @@
 import React from 'react';
-import { useIsMobile } from '../hooks/useIsMobile';
-import KoreaHallDesktop from './desktop/KoreaHallDesktop';
-import KoreaHallMobile from './mobile/KoreaHallMobile';
+import { useIsMobile } from '../hooks/use-is-mobile';
+import KoreaHallDesktop from './desktop/korea-hall-desktop';
+import KoreaHallMobile from './mobile/korea-hall-mobile';
 
 interface KoreaHallRouterProps {
   onBack: () => void;

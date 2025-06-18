@@ -1,7 +1,7 @@
 import React from 'react';
-import { useIsMobile } from '../hooks/useIsMobile';
-import LoginPageDesktop from './desktop/LoginPageDesktop';
-import LoginPageMobile from './mobile/LoginPageMobile';
+import { useIsMobile } from '../hooks/use-is-mobile';
+import LoginPageDesktop from './desktop/login-page-desktop';
+import LoginPageMobile from './mobile/login-page-mobile';
 
 interface LoginPageRouterProps {
   onBack: () => void;

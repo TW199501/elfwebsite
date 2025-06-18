@@ -16,7 +16,8 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/theme-context';
+import { useI18n } from '../../contexts/i18n-context';
 
 interface LoginPageDesktopProps {
   onBack: () => void;
@@ -36,6 +37,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
   const [biometricStatus, setBiometricStatus] = useState<'idle' | 'scanning' | 'success' | 'error'>('idle');
 
   const { getThemeColors } = useTheme();
+  const { t } = useI18n();
   const colors = getThemeColors();
 
   useEffect(() => {
@@ -108,7 +110,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
             className={`flex items-center space-x-2 text-gray-500 hover:${colors.textColor} transition-colors duration-300`}
           >
             <ArrowLeft className="w-5 h-5" />
-            <span>返回首頁</span>
+            <span>{t('common.back')}</span>
           </button>
           <div className="flex items-center space-x-3">
             <div className={`w-10 h-10 bg-gradient-to-br ${colors.primary} rounded-lg flex items-center justify-center`}>
@@ -116,7 +118,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
             </div>
             <div>
               <span className={`text-lg font-bold bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-                智能集運網
+                {t('header.title')}
               </span>
               <div className="text-xs text-gray-500">AI智能登入系統</div>
             </div>
@@ -139,10 +141,10 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                   </div>
                   <h1 className="text-3xl font-bold mb-2">
                     <span className={`bg-gradient-to-r ${colors.textGradient} bg-clip-text text-transparent`}>
-                      AI智能登入
+                      {t('login.title')}
                     </span>
                   </h1>
-                  <p className="text-gray-500">啟動您的專屬AI集運服務</p>
+                  <p className="text-gray-500">{t('login.subtitle')}</p>
                 </div>
 
                 {/* Login Method Tabs */}
@@ -156,7 +158,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                     }`}
                   >
                     <Mail className="w-4 h-4" />
-                    <span className="text-sm">信箱</span>
+                    <span className="text-sm">{t('login.method.email')}</span>
                   </button>
                   <button
                     onClick={() => setLoginMethod('phone')}
@@ -167,7 +169,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                     }`}
                   >
                     <Smartphone className="w-4 h-4" />
-                    <span className="text-sm">手機</span>
+                    <span className="text-sm">{t('login.method.phone')}</span>
                   </button>
                   <button
                     onClick={() => setLoginMethod('biometric')}
@@ -178,7 +180,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                     }`}
                   >
                     <Fingerprint className="w-4 h-4" />
-                    <span className="text-sm">生物</span>
+                    <span className="text-sm">{t('login.method.biometric')}</span>
                   </button>
                 </div>
 
@@ -187,7 +189,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                   <div className="space-y-4">
                     <div>
                       <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                        電子信箱
+                        {t('login.email.label')}
                       </label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -195,14 +197,14 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="請輸入您的信箱"
+                          placeholder={t('login.email.placeholder')}
                           className={`w-full pl-10 pr-4 py-3 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300`}
                         />
                       </div>
                     </div>
                     <div>
                       <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                        密碼
+                        {t('login.password.label')}
                       </label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -210,7 +212,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                           type={showPassword ? 'text' : 'password'}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          placeholder="請輸入您的密碼"
+                          placeholder={t('login.password.placeholder')}
                           className={`w-full pl-10 pr-12 py-3 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300`}
                         />
                         <button
@@ -230,7 +232,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                   <div className="space-y-4">
                     <div>
                       <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                        手機號碼
+                        {t('login.phone.label')}
                       </label>
                       <div className="relative">
                         <Smartphone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
@@ -238,7 +240,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          placeholder="請輸入您的手機號碼"
+                          placeholder={t('login.phone.placeholder')}
                           className={`w-full pl-10 pr-4 py-3 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 transition-all duration-300`}
                         />
                       </div>
@@ -253,8 +255,8 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse rounded-full"></div>
                       <Fingerprint className="w-12 h-12 text-white relative z-10" />
                     </div>
-                    <h3 className={`text-xl font-bold ${colors.textColor} mb-2`}>生物識別登入</h3>
-                    <p className="text-gray-500 mb-6">使用指紋或面部識別快速登入</p>
+                    <h3 className={`text-xl font-bold ${colors.textColor} mb-2`}>{t('login.biometric.title')}</h3>
+                    <p className="text-gray-500 mb-6">{t('login.biometric.desc')}</p>
                   </div>
                 )}
 
@@ -262,14 +264,14 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                 <div className="flex items-center justify-between mb-6 text-sm">
                   <label className="flex items-center space-x-2 text-gray-500">
                     <input type="checkbox" className="rounded border-gray-500 bg-transparent text-orange-500 focus:ring-orange-500" />
-                    <span>記住我</span>
+                    <span>{t('login.remember')}</span>
                   </label>
                   <a href="#" className={`hover:text-orange-400 transition-colors duration-300`}
                     style={{ 
                       color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                     }}
                   >
-                    忘記密碼？
+                    {t('login.forgot')}
                   </a>
                 </div>
 
@@ -282,12 +284,12 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                   {isLoading ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>AI驗證中...</span>
+                      <span>{t('login.loading')}</span>
                     </>
                   ) : (
                     <>
                       <Zap className="w-5 h-5" />
-                      <span>啟動AI集運</span>
+                      <span>{t('login.button')}</span>
                     </>
                   )}
                 </button>
@@ -303,17 +305,17 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                 <div className="grid grid-cols-2 gap-3">
                   <button className={`flex items-center justify-center space-x-2 py-3 px-4 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg hover:shadow-md transition-all duration-300`}>
                     <QrCode className="w-5 h-5 text-green-400" />
-                    <span className="text-sm">LINE登入</span>
+                    <span className="text-sm">{t('login.social.line')}</span>
                   </button>
                   <button className={`flex items-center justify-center space-x-2 py-3 px-4 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg hover:shadow-md transition-all duration-300`}>
                     <Shield className={`w-5 h-5`} style={{ color: colors.textGradient.includes('orange') ? '#f97316' : '#3b82f6' }} />
-                    <span className="text-sm">Google</span>
+                    <span className="text-sm">{t('login.social.google')}</span>
                   </button>
                 </div>
 
                 {/* Register Link */}
                 <div className="text-center mt-6">
-                  <span className="text-gray-500">還沒有帳號？</span>
+                  <span className="text-gray-500">{t('login.register.text')}</span>
                   <button 
                     onClick={onGoToRegister}
                     className={`hover:text-orange-400 transition-colors duration-300 ml-1`}
@@ -321,7 +323,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                       color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                     }}
                   >
-                    立即註冊
+                    {t('login.register.link')}
                   </button>
                 </div>
               </>
@@ -336,24 +338,24 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                   </div>
                   <h1 className="text-3xl font-bold mb-2">
                     <span className={`bg-gradient-to-r ${colors.accent} bg-clip-text text-transparent`}>
-                      簡訊驗證
+                      {t('verification.title')}
                     </span>
                   </h1>
                   <p className="text-gray-500">
-                    驗證碼已發送至 {phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1***$3')}
+                    {t('verification.subtitle', { phone: phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1***$3') })}
                   </p>
                 </div>
 
                 <div className="space-y-4">
                   <div>
                     <label className={`block text-sm font-medium ${colors.textColor} mb-2`}>
-                      驗證碼
+                      {t('verification.code.label')}
                     </label>
                     <input
                       type="text"
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
-                      placeholder="請輸入6位數驗證碼"
+                      placeholder={t('verification.code.placeholder')}
                       maxLength={6}
                       className={`w-full px-4 py-3 ${colors.cardBg} border-2 ${colors.borderColor} rounded-lg focus:ring-2 focus:ring-orange-500 outline-none ${colors.textColor} placeholder-gray-500 text-center text-2xl tracking-widest transition-all duration-300`}
                     />
@@ -361,7 +363,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
 
                   <div className="text-center">
                     {countdown > 0 ? (
-                      <span className="text-gray-500">重新發送驗證碼 ({countdown}s)</span>
+                      <span className="text-gray-500">{t('verification.resend.countdown', { countdown })}</span>
                     ) : (
                       <button
                         onClick={resendCode}
@@ -370,7 +372,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                           color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                         }}
                       >
-                        重新發送驗證碼
+                        {t('verification.resend')}
                       </button>
                     )}
                   </div>
@@ -383,12 +385,12 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                     {isLoading ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        <span>驗證中...</span>
+                        <span>{t('verification.loading')}</span>
                       </>
                     ) : (
                       <>
                         <CheckCircle className="w-5 h-5" />
-                        <span>確認驗證</span>
+                        <span>{t('verification.button')}</span>
                       </>
                     )}
                   </button>
@@ -430,24 +432,24 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                         : colors.secondary
                     }`}>
                       {biometricStatus === 'scanning' 
-                        ? 'AI掃描中...' 
+                        ? t('biometric.scanning')
                         : biometricStatus === 'success'
-                        ? '驗證成功！'
+                        ? t('biometric.success')
                         : biometricStatus === 'error'
-                        ? '驗證失敗'
-                        : '生物識別驗證'
+                        ? t('biometric.error')
+                        : t('biometric.title')
                       }
                     </span>
                   </h1>
                   
                   <p className="text-gray-500 mb-8">
                     {biometricStatus === 'scanning' 
-                      ? 'AI正在分析您的生物特徵...' 
+                      ? t('biometric.scanning.desc')
                       : biometricStatus === 'success'
-                      ? '歡迎回來！正在為您啟動AI集運服務'
+                      ? t('biometric.success.desc')
                       : biometricStatus === 'error'
-                      ? '請重新嘗試或選擇其他登入方式'
-                      : '請將手指放在感應器上或看向攝像頭'
+                      ? t('biometric.error.desc')
+                      : t('biometric.idle.desc')
                     }
                   </p>
 
@@ -456,7 +458,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                       onClick={handleBiometricScan}
                       className={`bg-gradient-to-r ${colors.secondary} hover:${colors.secondary.replace('to-', 'hover:to-').replace('from-', 'hover:from-')} text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105`}
                     >
-                      開始掃描
+                      {t('biometric.start')}
                     </button>
                   )}
 
@@ -466,7 +468,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                         onClick={handleBiometricScan}
                         className={`bg-gradient-to-r ${colors.secondary} hover:${colors.secondary.replace('to-', 'hover:to-').replace('from-', 'hover:from-')} text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105`}
                       >
-                        重新掃描
+                        {t('biometric.retry')}
                       </button>
                       <button
                         onClick={() => setStep('login')}
@@ -475,7 +477,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
                           color: colors.textGradient.includes('orange') ? '#fb923c' : '#22d3ee'
                         }}
                       >
-                        返回其他登入方式
+                        {t('biometric.back')}
                       </button>
                     </div>
                   )}
@@ -488,7 +490,7 @@ const LoginPageDesktop: React.FC<LoginPageDesktopProps> = ({ onBack, onGoToRegis
           <div className="mt-6 text-center">
             <div className="flex items-center justify-center space-x-2 text-gray-500 text-sm">
               <Shield className="w-4 h-4" />
-              <span>採用256位元加密技術保護您的資料安全</span>
+              <span>{t('security.notice')}</span>
             </div>
           </div>
         </div>

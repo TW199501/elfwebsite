@@ -8,10 +8,10 @@ export const loadLocale = async (language: Language): Promise<Record<string, str
         const enModule = await import('./en');
         return enModule.default;
       case 'zh-TW':
-        const zhTWModule = await import('./zh-TW');
+        const zhTWModule = await import('./zh-tw');
         return zhTWModule.default;
       case 'zh-CN':
-        const zhCNModule = await import('./zh-CN');
+        const zhCNModule = await import('./zh-cn');
         return zhCNModule.default;
       default:
         // 預設載入英文

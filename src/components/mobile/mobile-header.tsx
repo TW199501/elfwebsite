@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cpu } from 'lucide-react';
 import { ThemeColors } from '../../types';
-import { useI18n } from '../../contexts/I18nContext';
+import { useI18n } from '../../contexts/i18n-context';
 import ThemeToggle from '../ThemeToggle';
 import LanguageToggle from '../LanguageToggle';
 
