@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { loadLocale, detectBrowserLanguage, LANGUAGE_CONFIG } from '../i18n';
+import { loadLocale, LANGUAGE_CONFIG } from '../i18n';
 import { I18nContext, Language } from './i18n-context-utils';
 
 // 只 export I18nProvider，context/hook/type 都從 i18n-context-utils 匯入
 
 const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    // 優先從 localStorage 讀取，否則自動檢測
-    const savedLang = localStorage.getItem('language') as Language;
-    if (savedLang && LANGUAGE_CONFIG.supportedLanguages.includes(savedLang)) {
-      return savedLang;
-    }
-    return detectBrowserLanguage();
-  });
+  // 預設語言永遠為繁體中文
+  const [language, setLanguageState] = useState<Language>('zh-TW');
 
   const [translations, setTranslations] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -91,9 +85,10 @@ const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     return text;
   };
 
+  // 語言切換順序：繁體中文、英文、簡體中文
   const availableLanguages = [
-    { code: 'en' as Language, name: 'English', flag: '🇺🇸' },
     { code: 'zh-TW' as Language, name: '繁體中文', flag: '🇹🇼' },
+    { code: 'en' as Language, name: 'English', flag: '🇺🇸' },
     { code: 'zh-CN' as Language, name: '简体中文', flag: '🇨🇳' }
   ];
 
