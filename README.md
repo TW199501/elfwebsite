@@ -8,6 +8,10 @@ npm install
 npm run dev
 ``` 
 
-```bash
+```bash 建置
 npm run build
+```
+
+```bash 預覽模式
+npm run preview
 ```
