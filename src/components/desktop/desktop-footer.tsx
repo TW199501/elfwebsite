@@ -10,7 +10,7 @@ import {
   Globe
 } from 'lucide-react';
 import { ThemeColors } from '../../types';
-import { useI18n } from '../../contexts/i18n-context';
+import { useI18n } from '../../contexts/i18n-context-utils';
 
 interface DesktopFooterProps {
   colors: ThemeColors;
