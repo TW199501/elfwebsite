@@ -36,7 +36,7 @@ export default {
   'services.subtitle': '運用最新AI技術，提供您最優質的集運體驗',
   'services.calculator.title': 'AI智能運費計算器',
   'services.calculator.desc': '精準計算運費成本',
-  'services.support.title': '智能客服中心',
+  'services.support.title': '365全年無休',
   'services.support.desc': '24小時AI客服支援',
   'services.consultation.title': '智能線上諮詢',
   'services.consultation.desc': '專業問題即時解答',
